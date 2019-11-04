@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="SerializationFail.Views.SerializationPregenerationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SerializationFail.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Instructions" Background="Cornsilk" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <TextBlock TextWrapping="Wrap" Margin="8">
+            This tests for the presence of the XmlSerializers DLL, and also tests if a class can be serialized and then deserialized. Note these are independent of each other.
+            </TextBlock>
+        </GroupBox>
+        <TextBlock Padding="4" Grid.Row="1" Grid.Column="0" Text="{Binding FileMessage}" Background="LightGray"/>
+        <TextBlock Padding="4" Grid.Row="1" Grid.Column="1" Text="{Binding FileStatus}"/>
+        <TextBlock Padding="4" Grid.Row="2" Grid.Column="0" Text="{Binding WriteMessage}" Background="LightGray"/>
+        <TextBlock Padding="4" Grid.Row="2" Grid.Column="1" Text="{Binding WriteStatus}"/>
+        <TextBlock Padding="4" Grid.Row="3" Grid.Column="0" Text="{Binding ReadMessage}" Background="LightGray"/>
+        <TextBlock Padding="4" Grid.Row="3" Grid.Column="1" Text="{Binding ReadStatus}"/>
+        <TextBlock Padding="4" Grid.Row="4" Grid.Column="0" Text="{Binding ErrorMessage}" Background="LightGray"/>
+        <TextBlock Padding="4" Grid.Row="4" Grid.Column="1" Text="{Binding ErrorStatus}"/>
+        <TextBlock Padding="4" Grid.Row="5" Grid.Column="0" Text="{Binding AssemblyVersion}" Background="LightGray"/>
+        <TextBlock Padding="4" Grid.Row="5" Grid.Column="1" Text="{Binding SerializerParentAssemblyVersion}"/>
+        <TextBlock Padding="4" Grid.Row="6" Grid.Column="0" Text="Assembly Versions Equal" Background="LightGray"/>
+        <TextBlock Padding="4" Grid.Row="6" Grid.Column="1" Text="{Binding AssemblyVersionsEqual}"/>
+        <Button Padding="24" Grid.Row="7" Grid.ColumnSpan="2" Command="{Binding RunTestCommand}">Run The Test</Button>
+        <TextBlock Padding="4" Grid.Row="8" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding FileContents}"/>
+
+        <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="9" ItemsSource="{Binding AllTypes}"></ListView>
+    </Grid>
+</UserControl>
