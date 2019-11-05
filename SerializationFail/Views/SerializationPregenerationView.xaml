@@ -89,18 +89,20 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Padding="4" Grid.Row="1" Grid.Column="0" Text="{Binding FileMessage}" Background="LightGray"/>
-                <TextBlock Padding="4" Grid.Row="1" Grid.Column="1" Text="{Binding FileStatus}"/>
-                <TextBlock Padding="4" Grid.Row="2" Grid.Column="0" Text="{Binding WriteMessage}" Background="LightGray"/>
-                <TextBlock Padding="4" Grid.Row="2" Grid.Column="1" Text="{Binding WriteStatus}"/>
-                <TextBlock Padding="4" Grid.Row="3" Grid.Column="0" Text="{Binding ReadMessage}" Background="LightGray"/>
-                <TextBlock Padding="4" Grid.Row="3" Grid.Column="1" Text="{Binding ReadStatus}"/>
-                <TextBlock Padding="4" Grid.Row="4" Grid.Column="0" Text="{Binding ErrorMessage}" Background="LightGray"/>
-                <TextBlock Padding="4" Grid.Row="4" Grid.Column="1" Text="{Binding ErrorStatus}"/>
-                <TextBlock Padding="4" Grid.Row="5" Grid.Column="0" Text="{Binding AssemblyVersion}" Background="LightGray"/>
-                <TextBlock Padding="4" Grid.Row="5" Grid.Column="1" Text="{Binding SerializerParentAssemblyVersion}"/>
-                <TextBlock Padding="4" Grid.Row="6" Grid.Column="0" Text="Assembly Versions Equal" Background="LightGray"/>
-                <TextBlock Padding="4" Grid.Row="6" Grid.Column="1" Text="{Binding AssemblyVersionsEqual}"/>
+                <TextBlock Padding="4" Grid.Row="0" Grid.Column="0" Text="{Binding FileMessage}" Background="LightGray"/>
+                <TextBlock Padding="4" Grid.Row="0" Grid.Column="1" Text="{Binding FileStatus}"/>
+                <TextBlock Padding="4" Grid.Row="1" Grid.Column="0" Text="{Binding WriteMessage}" Background="LightGray"/>
+                <TextBlock Padding="4" Grid.Row="1" Grid.Column="1" Text="{Binding WriteStatus}"/>
+                <TextBlock Padding="4" Grid.Row="2" Grid.Column="0" Text="{Binding ReadMessage}" Background="LightGray"/>
+                <TextBlock Padding="4" Grid.Row="2" Grid.Column="1" Text="{Binding ReadStatus}"/>
+                <TextBlock Padding="4" Grid.Row="3" Grid.Column="0" Text="{Binding ErrorMessage}" Background="LightGray"/>
+                <TextBlock Padding="4" Grid.Row="3" Grid.Column="1" Text="{Binding ErrorStatus}"/>
+                <TextBlock Padding="4" Grid.Row="4" Grid.Column="0" Text="{Binding AssemblyVersion}" Background="LightGray"/>
+                <TextBlock Padding="4" Grid.Row="4" Grid.Column="1" Text="{Binding SerializerParentAssemblyVersion}"/>
+                <TextBlock Padding="4" Grid.Row="5" Grid.Column="0" Text="Assembly Versions Equal" Background="LightGray"/>
+                <TextBlock Padding="4" Grid.Row="5" Grid.Column="1" Text="{Binding AssemblyVersionsEqual}"/>
+                <TextBlock Padding="4" Grid.Row="6" Grid.Column="0" Text="versionAttribute.Namespace" Background="LightGray"/>
+                <TextBlock Padding="4" Grid.Row="6" Grid.Column="1" Text="{Binding VersionAttributeNamespace}"/>
                 <Button Padding="24" Grid.Row="7" Grid.ColumnSpan="2" Command="{Binding RunTestCommand}" Background="LightGreen">Run The Test</Button>
                 <TextBlock Padding="4" Grid.Row="8" Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{Binding FileContents}"/>
             </Grid>

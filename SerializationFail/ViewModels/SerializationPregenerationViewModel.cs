@@ -84,6 +84,23 @@ namespace SerializationFail.ViewModels
 			}
 		}
 
+
+		private string GenerateVersionAttributeNamespace(Type type)
+		{
+			var path = GetXmlSerializersPath(type);
+			if (File.Exists(path))
+			{
+				var assembly = Assembly.LoadFile(path);
+				object[] customAttributes = assembly.GetCustomAttributes(typeof(XmlSerializerVersionAttribute), false);
+				XmlSerializerVersionAttribute versionAttribute = (XmlSerializerVersionAttribute)customAttributes[0];
+				return versionAttribute.Namespace;
+			}
+			else
+			{
+				return null;
+			}
+		}
+
 		private string GetXmlSerializersPath(Type type)
 		{
 			var path = Assembly.GetAssembly(type).Location;
@@ -150,6 +167,8 @@ namespace SerializationFail.ViewModels
 
 		public string AssemblyVersion => GenerateAssemblyId(typeof(T));
 
+		public string VersionAttributeNamespace => GenerateVersionAttributeNamespace(typeof(T)) ?? "{null}";
+
 		public string SerializerParentAssemblyVersion => GenerateSerializerParentAssemblyId(typeof(T));
 
 		public bool AssemblyVersionsEqual => AssemblyVersion == SerializerParentAssemblyVersion;
@@ -160,5 +179,6 @@ namespace SerializationFail.ViewModels
 			.GetAssemblies()
 			.SelectMany(assembly => assembly.GetTypes())
 			.Where(t => t.FullName.Contains("SerializationFail") && !t.FullName.Contains("_DisplayClass"));
+
 	}
 }
