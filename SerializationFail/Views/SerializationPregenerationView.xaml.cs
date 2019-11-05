@@ -1,4 +1,5 @@
-﻿using SerializationFail.ViewModels;
+﻿using SerializationFail.Data;
+using SerializationFail.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace SerializationFail.Views
 	{
 		public SerializationPregenerationView()
 		{
-			this.DataContext = new SerializationPregenerationViewModel();
+			this.DataContext = new SerializationPregenerationViewModel<TestRootType>();
 			InitializeComponent();
 		}
 	}

@@ -1,5 +1,4 @@
-﻿using SerializationFail.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,10 +10,9 @@ using System.Xml.Serialization;
 
 namespace SerializationFail.ViewModels
 {
-	public class SerializationPregenerationViewModel : NotifyPropertyChanged
+	public class SerializationPregenerationViewModel<T> : NotifyPropertyChanged where T : class, new()
 	{
 		private bool _testHasRun = false;
-		private Type _typeToTest = typeof(TestRootType);
 
 		private void DoTest()
 		{
@@ -24,12 +22,11 @@ namespace SerializationFail.ViewModels
 				{
 					// Create the serializer, if we've pregenerated it, then we shouldn't get
 					// an internally caught exception here.
-					XmlSerializer serializer = new XmlSerializer(_typeToTest);
+					XmlSerializer serializer = new XmlSerializer(typeof(T));
 					MemoryStream stream = new MemoryStream();
 
 					// Create the test data
-					TestRootType testWrite = new TestRootType();
-					testWrite.PopulateTestData();
+					T testWrite = new T();
 
 					// Write out the test data
 					serializer.Serialize(stream, testWrite);
@@ -42,7 +39,7 @@ namespace SerializationFail.ViewModels
 
 					// Deserialize the test data
 					stream.Seek(0, SeekOrigin.Begin);
-					var testRead = serializer.Deserialize(stream) as TestRootType;
+					var testRead = serializer.Deserialize(stream) as T;
 					ReadStatus = testRead.Equals(testWrite);
 
 					ErrorStatus = "No Error";
@@ -103,9 +100,9 @@ namespace SerializationFail.ViewModels
 		}
 
 
-		public string FileMessage => $"{GetXmlSerializersFilename(_typeToTest)} Exists";
+		public string FileMessage => $"{GetXmlSerializersFilename(typeof(T))} Exists";
 
-		public bool FileStatus => File.Exists(GetXmlSerializersPath(_typeToTest));
+		public bool FileStatus => File.Exists(GetXmlSerializersPath(typeof(T)));
 
 		public string ReadMessage => $"Serialization Read Successful";
 
@@ -151,9 +148,9 @@ namespace SerializationFail.ViewModels
 			set => SetProperty(ref _fileContents, value);
 		}
 
-		public string AssemblyVersion => GenerateAssemblyId(_typeToTest);
+		public string AssemblyVersion => GenerateAssemblyId(typeof(T));
 
-		public string SerializerParentAssemblyVersion => GenerateSerializerParentAssemblyId(_typeToTest);
+		public string SerializerParentAssemblyVersion => GenerateSerializerParentAssemblyId(typeof(T));
 
 		public bool AssemblyVersionsEqual => AssemblyVersion == SerializerParentAssemblyVersion;
 
@@ -161,6 +158,7 @@ namespace SerializationFail.ViewModels
 		  AppDomain
 			.CurrentDomain
 			.GetAssemblies()
-			.SelectMany(assembly => assembly.GetTypes());
+			.SelectMany(assembly => assembly.GetTypes())
+			.Where(t => t.FullName.Contains("SerializationFail") && !t.FullName.Contains("_DisplayClass"));
 	}
 }

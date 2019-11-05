@@ -12,7 +12,7 @@ namespace SerializationFail.Data
 
 		public TestRootType()
 		{
-
+			PopulateTestData();
 		}
 
 		public void PopulateTestData()
