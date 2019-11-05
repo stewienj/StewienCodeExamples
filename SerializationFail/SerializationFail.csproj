@@ -118,13 +118,12 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="GeneratePregeneratedSerializersSigned" BeforeTargets="AfterBuild" DependsOnTargets="AssignTargetPaths;Compile;ResolveKeySource" Inputs="$(MSBuildAllProjects);@(IntermediateAssembly)" Outputs="$(OutputPath)$(_SGenDllName)" Condition="Exists('PregeneratedSerializers.cs') and '$(SignAssembly)'=='true'">
+  <Target Name="GeneratePregeneratedSerializersSigned" BeforeTargets="AfterBuild" DependsOnTargets="AssignTargetPaths;Compile;ResolveKeySource" Inputs="$(MSBuildAllProjects);@(IntermediateAssembly)" Outputs="$(OutputPath)$(_SGenDllName)" Condition="Exists('PregeneratedSerializers.cs')">
     <PropertyGroup>
       <SGenToolPath Condition="'$(Platform)'=='x64'">$(SDK40ToolsPath)x64\</SGenToolPath>
       <SGenToolPath Condition="'$(Platform)'!='x64'">$(SDK40ToolsPath)</SGenToolPath>
       <SGenKeyFile Condition="'$(SignAssembly)'=='true'">SerializationFail.snk</SGenKeyFile>
-      <SGenKeyFile Condition="'$(SignAssembly)'!='true'">
-      </SGenKeyFile>
+      <SGenKeyFile Condition="'$(SignAssembly)'!='true'"></SGenKeyFile>
     </PropertyGroup>
     <SGen BuildAssemblyName="$(TargetFileName)" BuildAssemblyPath="$(OutputPath)" References="@(ReferencePath)" ShouldGenerateSerializer="true" UseProxyTypes="false" KeyFile="$(SGenKeyFile)" ToolPath="$(SGenToolPath)" Platform="$(PlatformTarget)" Types="$(RootNamespace).PregeneratedSerializers">
       <Output TaskParameter="SerializationAssembly" ItemName="SerializationAssembly" />
