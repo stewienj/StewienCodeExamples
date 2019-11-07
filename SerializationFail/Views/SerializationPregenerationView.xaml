@@ -59,7 +59,7 @@
         <GroupBox DockPanel.Dock="Right">
             <GroupBox.Header>
                 <Border>
-                    <TextBlock FontWeight="Bold" Padding="4">List Of Types From Assemblies</TextBlock>
+                    <TextBlock FontWeight="Bold" Padding="4">List Of Types From Assemblies - Weird name is generated code</TextBlock>
                 </Border>
             </GroupBox.Header>
             <ListView ItemsSource="{Binding AllTypes}" ScrollViewer.VerticalScrollBarVisibility="Visible"/>

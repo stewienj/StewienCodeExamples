@@ -170,12 +170,40 @@ namespace SerializationFail.ViewModels
 
 		public bool AssemblyVersionsEqual => AssemblyVersion == SerializerParentAssemblyVersion;
 
-		public IEnumerable<Type> AllTypes =>
-		  AppDomain
-			.CurrentDomain
-			.GetAssemblies()
-			.SelectMany(assembly => assembly.GetTypes())
-			.Where(t => t.FullName.Contains("SerializationFail") && !t.FullName.Contains("_DisplayClass"));
+		public IEnumerable<string> AllTypes
+		{
+			get
+			{
+				var typeMatches = new[]
+				{
+					"SerializationFail",
+					"GeneratedAssembly"
+				};
 
+				foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+				{
+					var types = new Type[0];
+					try
+					{
+						// Error gets thrown here
+						types = assembly.GetTypes();
+					}
+					catch (Exception ex)
+					{
+						types = new Type[0];
+						ErrorStatus = ex.Message;
+					}
+					foreach (var type in types)
+					{
+						var description = $"{assembly.GetName().Name} - {type}";
+
+						if (typeMatches.Any(tm=> description.Contains(tm)) && !description.Contains("_DisplayClass"))
+						{
+							yield return description;
+						}
+					}
+				}
+			}
+		}
 	}
 }
