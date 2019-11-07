@@ -32,10 +32,7 @@ namespace SerializationFail.ViewModels
 					serializer.Serialize(stream, testWrite);
 					WriteStatus = true;
 
-					// Display the written out data
-					stream.Seek(0, SeekOrigin.Begin);
-					StreamReader reader = new StreamReader(stream);
-					FileContents = reader.ReadToEnd();
+					FileContents = Encoding.ASCII.GetString(stream.ToArray());
 
 					// Deserialize the test data
 					stream.Seek(0, SeekOrigin.Begin);

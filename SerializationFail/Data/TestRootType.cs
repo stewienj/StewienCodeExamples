@@ -8,7 +8,7 @@ namespace SerializationFail.Data
 {
 	public class TestRootType
 	{
-		private List<TestDataType> _testData = new List<TestDataType>();
+		private TestDataType[] _testData = null;
 
 		public TestRootType()
 		{
@@ -17,16 +17,16 @@ namespace SerializationFail.Data
 
 		public void PopulateTestData()
 		{
-			var names = new[]
+			_testData = new[]
 			{
-		  "Lisa",
-		  "Bart",
-		  "Marge",
-		  "Homer",
-		  "Abe"
-		};
-
-			_testData.AddRange(names.Select(n => new TestDataType(n)));
+			  "Lisa",
+			  "Bart",
+			  "Marge",
+			  "Homer",
+			  "Abe"
+			}
+			.Select(n => new TestDataType(n))
+			.ToArray();
 		}
 
 		public override int GetHashCode()
@@ -40,16 +40,17 @@ namespace SerializationFail.Data
 			{
 				return
 				  testRoot?.TestData != null
-					&& testRoot.TestData.Count == _testData.Count
+					&& testRoot.TestData.Length == _testData.Length
 					&& testRoot
 						.TestData
-						.Zip(_testData, (a, b) => a.Name == b.Name && a.SomeColor == b.SomeColor)
+						.Zip(_testData, (a, b) => a.Name.Equals(b.Name) && a.SomeColor.Equals(b.SomeColor))
 						.Aggregate((a, b) => a && b);
+
 			}
 			return false;
 		}
 
-		public List<TestDataType> TestData
+		public TestDataType[] TestData
 		{
 			get => _testData;
 			set => _testData = value;
