@@ -1,0 +1,30 @@
+<Project>
+  <!-- 
+       If you want to debug this look at https://docs.microsoft.com/en-us/dotnet/core/project-sdk/overview
+       or dotnet msbuild -preprocess:output.xml <project file name>
+  -->
+  <PropertyGroup>
+    <!-- SolutionDir is not defined when building projects explicitly -->
+    <SolutionDir Condition=" '$(SolutionDir)' == '' ">$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), DllLoadFailTest.sln))\</SolutionDir>
+  </PropertyGroup>
+
+  <!-- Disable copying project references local because everything builds to the same directory ...this breaks .NET Core -->
+  <ItemDefinitionGroup>
+    <ProjectReference>
+	  <Private>False</Private>
+	</ProjectReference>
+  </ItemDefinitionGroup>
+
+  <PropertyGroup>
+    <TargetFrameworks>net472;net5.0</TargetFrameworks>
+  </PropertyGroup>
+  
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)Bin\$(Configuration)_$(Platform)_$(TargetFramework)\</OutDir>
+    <OutputPath>$(SolutionDir)Bin\$(Configuration)_$(Platform)_$(TargetFramework)\</OutputPath>
+    <BaseIntermediateOutputPath>$(SolutionDir)Intermediate\Base\$(Platform)_$(Configuration)\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+    <IntermediateOutputPath>$(SolutionDir)Intermediate\Build\$(Platform)_$(Configuration)_$(TargetFramework)\$(MSBuildProjectName)\</IntermediateOutputPath>
+  </PropertyGroup>
+
+ 
+</Project>
